@@ -50,9 +50,10 @@ def kmz_convert(kmz_path, output_dir, separate_folders=False,
     # Handle HTML Description Tables
     for layer in layers:
         for feature in layer['features']:
+          try:
             if "<table>" in feature['properties']['description']:
                 tree = html.fromstring(feature['properties']['description'])
-                
+
                 feature['properties']['date'] = tree.xpath('//table/tr[3]/td/text()')[0].strip()
                 feature['properties']['location'] = tree.xpath('//table/tr[5]/td/b/text()')[0].strip()
                 feature['properties']['pressure'] = float(tree.xpath('//table/tr[7]/td/text()')[0].strip().split(" ")[0])
@@ -61,6 +62,9 @@ def kmz_convert(kmz_path, output_dir, separate_folders=False,
                 del feature['properties']['name']
                 del feature['properties']['styleUrl']
                 del feature['properties']['description']
+
+          except:
+                print("no description")
 
     # Create filenames for layers
     filenames = disambiguate(

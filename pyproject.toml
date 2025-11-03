@@ -10,8 +10,8 @@ dependencies = [
 ]
 
 [project.scripts]
-kmz2g = "kmz2geojson.cli:main"
+kmz2g = "kmz2geojson.cli:kmz2g"
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
